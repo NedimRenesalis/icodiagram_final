@@ -8,6 +8,7 @@ use yii\helpers\ArrayHelper;
 use app\models\Currency;
 use app\models\Country;
 use yii\bootstrap\Html;
+use app\models\Listing;
 
 AdAsset::register($this);
 $adsImagesNumber = (int)options()->get("app.settings.common.adsImagesLimit", 4);
@@ -62,14 +63,15 @@ $this->registerJs($script, yii\web\View::POS_LOAD);
                         </div>
                     </div>
                     <br>
-                 <center>  
-                    <br> The listing fee for 10 days is 0.2BTC.
-                    <br>
-                    <br> <b>Besides you may contact us for an "Additional listing package" (details are in our advertising section) offering additional ICO promotion. <br><br>After submitting your ICO, please email us: office@icodiagram.com . </br> </center>
-                    <br>
+
                     <div class="block-body">
                         <div class="row">
-                       
+                            <div class="col-lg-8 col-lg-push-2 col-md-8 col-md-push-2 col-sm-12 col-xs-12">
+                                <?= $form->field($ad, 'type', [
+                                                'template' => '{input} {error}',
+                                    ])->dropDownList(Listing::getTypes(), ['class' => '', 'prompt' => t('app', 'Type')])->label(false);
+                                ?>
+                            </div>
                             <div class="col-lg-8 col-lg-push-2 col-md-8 col-md-push-2 col-sm-12 col-xs-12">
                                 <div class="row">
                                     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
@@ -310,10 +312,13 @@ $this->registerJs($script, yii\web\View::POS_LOAD);
                                             ])->dropDownList(ArrayHelper::map(Country::getActiveCountries(), 'country_id', 'name'),['value' => Country::getActiveCountries()[0]->country_id, 'class'=>'', 'prompt' => t('app','Country'), 'disabled' => true])->label(false);
                                         } ?>
                                     </div>
-                                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12" id="listing-select-zones-wrapper" data-url="<?=url(['/listing/get-country-zones']);?>" data-zone = <?=(int)$location->zone_id;?>>
-                                        <?= $form->field($location, 'zone_id', [
-                                            'template' => '{input} {error}',
-                                        ])->dropDownList(array(), ['class' => '', 'prompt' => t('app', 'Zone')])->label(false);?>
+                                </div>
+                                <center>Active from date</center>
+                                <div class="row">
+                                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                                        <?= $form->field($ad, 'active_from_date')->widget(\yii\jui\DatePicker::class, [
+                                            'dateFormat' => 'yyyy-MM-dd',
+                                        ])->label(false) ?>
                                     </div>
                                 </div>
                                 <div class="row">
