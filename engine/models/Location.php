@@ -27,7 +27,7 @@ class Location extends \app\models\auto\Location
     public function rules()
     {
         return [
-            [['country_id', 'zone_id'], 'required'],
+            [['country_id'], 'required'],
             ['latitude', 'required', 'when' => function($model) {
                 return options()->get('app.settings.common.disableMap', 0) == 0;
             },  'whenClient' => "function (attribute, value) {
@@ -42,9 +42,6 @@ class Location extends \app\models\auto\Location
             [['country_id', 'zone_id', 'city', 'zip'], 'trim'],
             [['country_id', 'zone_id'], 'integer'],
             [['country_id'], 'exist', 'skipOnError' => true, 'targetClass' => Country::className(), 'targetAttribute' => 'country_id'],
-            [['zone_id'], 'exist', 'skipOnError' => true, 'targetClass' => Zone::className(), 'targetAttribute' => 'zone_id', 'filter' => function($query) {
-                $query->andWhere(['country_id' => (int)$this->country_id]);
-            }],
             [['city'], 'string', 'max' => 150],
             [['zip'], 'string', 'max' => 10],
         ];
@@ -220,7 +217,7 @@ class Location extends \app\models\auto\Location
      */
     public function getAddress()
     {
-        return trim(sprintf('%s, %s, %s', $this->country->name, $this->zone->name, $this->zip));
+        return trim(sprintf('%s, %s', $this->country->name, $this->zip));
     }
 /**
      * @return string

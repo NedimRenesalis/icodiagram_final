@@ -113,6 +113,7 @@ $config = [
             'rules' => [
                 'search' => 'site/search',
                 'contact' => 'site/contact',
+                'pre-icos' => 'site/preicos',
                 '<controller:conversation>/<action:delete>' => '<controller>/<action>',
                 '<controller:conversation>/<action:reply>/<conversation_uid:[a-z0-9_\-]+>' => '<controller>/<action>',
                 '<controller:account>/<action:invoices>/<page:\d+>' => '<controller>/<action>',
