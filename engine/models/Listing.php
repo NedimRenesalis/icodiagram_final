@@ -29,16 +29,24 @@ class Listing extends \app\models\auto\Listing
     const STATUS_DEACTIVATED        = 'deactivated';
     const STATUS_PENDING_APPROVAL   = 'pending approval';
 
+    const TYPE_PREICO = 0;
+    const TYPE_ICO = 1;
+
+    const EVENT_TYPE_ACTIVE = 'active';
+    const EVENT_TYPE_UPCOMING = 'upcoming';
+
     /**
      * @inheritdoc
      */
     public function rules()
     {
         return [
-            [['category_id', 'currency_id', 'title', 'description', 'price'], 'required'],
+            [['category_id', 'currency_id', 'title', 'description', 'price', 'type'], 'required'],
             [['title', 'price'], 'trim'],
             [['category_id', 'currency_id', 'location_id', 'negotiable', 'hide_phone', 'hide_email', 'package_id'], 'integer'],
             [['price'], 'double'],
+            [['active_from_date'],'date', 'format'=>'Y-M-d', 'skipOnEmpty' => true],
+            [['active_from_date'], 'default', 'value' => null],
             [['title'], 'string', 'max' => 80],
             [['description'], 'string', 'min' => 30],
             [['description'], 'string'],
@@ -427,7 +435,7 @@ class Listing extends \app\models\auto\Listing
      */
     public function getZoneCountryString()
     {
-        return $this->location->zone->name . ', ' . $this->location->country->name;
+        return $this->location->country->name;
     }
 
     /**
@@ -441,6 +449,13 @@ class Listing extends \app\models\auto\Listing
             self::STATUS_DRAFT              => t('app', 'Draft'),
             self::STATUS_DEACTIVATED        => t('app', 'Deactivated'),
             self::STATUS_PENDING_APPROVAL   => t('app', 'Pending approval'),
+        ];
+    }
+
+    static function getTypes() {
+        return [
+            self::TYPE_PREICO             => t('app', 'Pre-ICO'),
+            self::TYPE_ICO            => t('app', 'ICO')
         ];
     }
 
