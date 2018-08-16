@@ -37,15 +37,6 @@ class AdsListWidget extends Widget
     public $listType;
 
     /**
-     * @var type
-     */
-    public $type;
-    /**
-     * @var event_type
-     */
-    public $event_type;
-
-    /**
      * @var string title of list
      */
     public $title;
@@ -76,10 +67,6 @@ class AdsListWidget extends Widget
             $this->col = 4;
         }
 
-        if(!isset($this->type)) {
-            $this->type = Listing::TYPE_ICO;
-        }
-
         if (!in_array($this->listType, [self::LIST_TYPE_PROMOTED, self::LIST_TYPE_NEW, self::LIST_TYPE_RELATED])) {
             throw new InvalidConfigException('"' . $this->listType . '" list type is not allowed.');
         }
@@ -95,17 +82,7 @@ class AdsListWidget extends Widget
             ->with(['favorite', 'currency', 'mainImage', 'category', 'location.zone', 'location.country'])
             ->where(['>', 'listing_expire_at', new Expression('NOW()')])
             ->andWhere(['status' => Listing::STATUS_ACTIVE])
-            ->andWhere(['type' => $this->type])
             ->limit($this->quantity);
-
-        if($this->event_type == Listing::EVENT_TYPE_ACTIVE) {
-            $query->andWhere(['or',
-                ['<', 't.active_from_date', new Expression('NOW()')],
-                ['t.active_from_date' => null]
-                ]);
-        } else {
-            $query->andWhere(['>', 't.active_from_date', new Expression('NOW()')]);
-        }
 
         if ($this->getIsPromotedList()) {
             $query->andWhere(['>', 'promo_expire_at', new Expression('NOW()')])

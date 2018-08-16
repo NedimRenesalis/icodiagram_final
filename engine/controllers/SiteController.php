@@ -86,34 +86,6 @@ class SiteController extends Controller
     }
 
     /**
-     * Displays homepage.
-     *
-     * @return string
-     */
-    public function actionPreicos()
-    {
-        $searchModel = new ListingSearch();
-        $topCatsWithFirstLevelChildren = Category::getTopCatsWithFirstLevelChildren();
-
-        // Meta tags
-        app()->view->registerMetaTag([
-            'name'    => 'keywords',
-            'content' => options()->get('app.settings.common.siteKeywords', 'EasyAds')
-        ]);
-        app()->view->registerMetaTag([
-            'name'    => 'description',
-            'content' => options()->get('app.settings.common.siteDescription', 'EasyAds')
-        ]);
-
-        app()->view->title = options()->get('app.settings.common.siteName', 'EasyAds');
-
-        return $this->render('index', [
-            'searchModel' => $searchModel,
-            'categories'  => $topCatsWithFirstLevelChildren
-        ]);
-    }
-
-    /**
      * Displays search page.
      *
      * @return string
