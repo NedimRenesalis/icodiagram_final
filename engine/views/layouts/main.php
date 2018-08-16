@@ -17,18 +17,6 @@ $formatter = app()->formatter;
 <!DOCTYPE html>
 <html lang="<?= app()->language ?>" dir="<?= LanguageHelper::getLanguageOrientation();?>">
     <head>
-        <!-- Global site tag (gtag.js) - Google Analytics -->
-        <script async 
-            src="https://eur02.safelinks.protection.outlook.com/?url=https%3A%2F%2Fwww.googletagmanager.com%2Fgtag%2Fjs%3Fid%3DUA-123346495-1&amp;data=02%7C01%7C%7C7c9a024216e64f76a7b908d5febe217e%7C84df9e7fe9f640afb435aaaaaaaaaaaa%7C1%7C0%7C636695014906874779&amp;sdata=oB3zq%2BVtmI2pL7nRdO%2Br3Skc3caK1v8Boiml%2BO2CxsY%3D&amp;reserved=0"></script>
-        <script>
-            window.dataLayer = window.dataLayer || [];
-            function gtag(){dataLayer.push(arguments);}
-            gtag('js', new Date());
-
-            gtag('config', 'UA-123346495-1');
-        </script>
-        <!-- /gtag.js -- >
-        
         <meta charset="<?= app()->charset ?>">
         <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height">
 
