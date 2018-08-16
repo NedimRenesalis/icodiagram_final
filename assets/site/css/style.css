@@ -6350,29 +6350,6 @@ div.fancy-select ul.options li.selected {
     font-size: 20px;
 }
 
-
-.active-upcomping-tabs {
-    text-align: center;
-    margin: 40px 0;
-    text-transform: uppercase;
-    color: #292929;
-}
-
-.active-upcomping-tabs a {
-    padding: 5px 10px;
-    cursor: pointer;
-    color: #292929;
-    font-weight: bold;
-}
-
-.active-upcomping-tabs a:hover {
-    border-bottom: 3px solid #001a66;
-}
-
-.active-upcomping-tabs a.active {
-    border-bottom: 3px solid #001a66;
-}
-
 html[dir=rtl] .breadcrumb li {
     float: right;
 }
