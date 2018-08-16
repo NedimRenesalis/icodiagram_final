@@ -20,6 +20,16 @@ $formatter = app()->formatter;
         <meta charset="<?= app()->charset ?>">
         <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height">
 
+        <!-- GTAG STATS -->
+        <script async src="https://www.googletagmanager.com/gtag/js?id=UA-123346495-1"></script>
+        <script>
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', 'UA-123346495-1');
+        </script>
+        <!-- /GTAG STATS -->
+
         <link rel="apple-touch-icon-precomposed" sizes="57x57" href="<?= \Yii::getAlias('@web/assets/common/favicon/apple-touch-icon-57x57.png');?>" />
         <link rel="apple-touch-icon-precomposed" sizes="114x114" href="<?= \Yii::getAlias('@web/assets/common/favicon/apple-touch-icon-114x114.png');?>" />
         <link rel="apple-touch-icon-precomposed" sizes="72x72" href="<?= \Yii::getAlias('@web/assets/common/favicon/apple-touch-icon-72x72.png');?>" />
