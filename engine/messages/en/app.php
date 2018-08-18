@@ -960,6 +960,7 @@ return [
     'reCAPTCHA Site key' => '',
     'recommended' => '',
     'reference' => '',
+    'Subscribe' => '',
     'were found here' => '',
     '{n} day|{n} days' => '',
     '{n} hour|{n} hours' => '',

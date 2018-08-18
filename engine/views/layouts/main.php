@@ -1,9 +1,11 @@
 <?php
 use yii\helpers\Html;
+
 use app\assets\AppAsset;
 use app\assets\RtlAsset;
 use app\helpers\LanguageHelper;
 use app\yii\base\Event;
+use app\models\SubscribeForm;
 
 AppAsset::register($this);
 
@@ -93,7 +95,7 @@ $formatter = app()->formatter;
 
         <?= $this->render(
             'footer.php',
-            []
+            ['subscribeModel' => new SubscribeForm()]
         ) ?>
     </body>
 </html>

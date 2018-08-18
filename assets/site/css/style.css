@@ -517,6 +517,9 @@ html[dir=rtl] #header .header-wrapper .main-menu .mobile-menu-wrapper ul li a .f
         padding: 15px 15px 5px 15px;
         background-color: rgba(255, 255, 255, 0.8);
     }
+    .subscribe .main-search form {
+        background: none;
+    }
 }
 
 @media only screen and (min-width: 992px) {}
@@ -9815,8 +9818,20 @@ html[dir=rtl] .conversation-reply .fa.fa-lock {
     color: #fafafa;
     border-color: #001a66;
 }
+/* subscribe footer */
+.main-search.subscribe-footer {
+    background-image: none;
+    background: rgb(243, 243, 243);
+    min-height: auto;
+}
 
-
+ /* overriden styles */
+ .no-margin {
+     margin: 0px !important;
+ }
+ .no-padding {
+    padding: 0px !important;
+}
 /* *** */
 
 
