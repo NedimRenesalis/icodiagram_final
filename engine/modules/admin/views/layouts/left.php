@@ -47,6 +47,7 @@ $user = app()->user->identity;
                     ['label' => 'Customers', 'icon' => 'chevron-right', 'url' => ['/admin/customers']],
                     ['label' => 'Stores', 'icon' => 'chevron-right', 'url' => ['/admin/customer-stores']],
                     ['label' => 'Messages', 'icon' => 'chevron-right', 'url' => ['/admin/conversations']],
+                    ['label' => 'Subscribers', 'icon' => 'chevron-right', 'url' => ['/admin/subscribers']],
                 ]
             ],
             [

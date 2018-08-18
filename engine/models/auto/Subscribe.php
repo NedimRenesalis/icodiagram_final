@@ -57,10 +57,10 @@ class Subscribe extends \app\yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'user_id'   => 'User ID',
+            'user_id'       => 'User ID',
             'email'         => 'Email',
             'created_at'    => 'Created At',
-            'updated_at'    => 'Updated At',
+            'updated_at'    => 'Updated At'
         ];
     }
 
