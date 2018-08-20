@@ -41,7 +41,7 @@ class Listing extends \app\models\auto\Listing
     public function rules()
     {
         return [
-            [['category_id', 'currency_id', 'title', 'description', 'price', 'type'], 'required'],
+            [['category_id', 'title', 'description', 'type'], 'required'],
             [['title', 'price'], 'trim'],
             [['category_id', 'currency_id', 'location_id', 'negotiable', 'hide_phone', 'hide_email', 'package_id'], 'integer'],
             [['price'], 'double'],
@@ -51,6 +51,12 @@ class Listing extends \app\models\auto\Listing
             [['description'], 'string', 'min' => 30],
             [['description'], 'string'],
             [['status'], 'safe'],
+
+            [['token', 'platform', 'pre_ico_price', 'ico_price', 'whitelist_kyc', 'restricted_areas', 'bonus', 'accepting', 'minimum_investment', 'soft_cap', 'hard_cap'], 'match',
+                'pattern' => '/^[a-z0-9,.=\s-]+$/i', 'message' => t('app', 'Field can only contain Alphabet, Numbers and special characters -.,='), 'skipOnEmpty' => true],
+            [['youtube', 'bounty', 'mvp_prototype'], 'url', 'skipOnEmpty' => true],
+            [['youtube'], 'match', 'pattern' => '/^(http(s)??\:\/\/)?(www\.)?(youtube\.com\/watch\?v=)|(youtu.be\/)[a-zA-Z0-9\-_]+$/i', 'message' => t('app', 'Entered link is not a valid youtube URL.')],
+            [['token', 'platform', 'pre_ico_price', 'ico_price', 'whitelist_kyc', 'restricted_areas', 'bonus', 'accepting', 'minimum_investment', 'soft_cap', 'hard_cap', 'youtube', 'bounty', 'mvp_prototype'], 'trim'],
         ];
     }
 
@@ -84,6 +90,20 @@ class Listing extends \app\models\auto\Listing
             'negotiable'    => t('app', 'Negotiable Price'),
             'hide_phone'    => t('app', 'Hide phone in ad'),
             'hide_email'    => t('app', 'Hide email in ad'),
+            'youtube'       => t('app', 'Youtube link'),
+            'token'       => t('app', 'Token name / Ticker'),
+            'platform'       => t('app', 'Platform and Token Type (e.g. Ethereum, ERC20)'),
+            'pre_ico_price'       => t('app', 'PRE-ICO Price per token (e.g. 1 IBC = 0.01 ETH)'),
+            'ico_price'       => t('app', 'Price per token (e.g. 1 IBC = 0.01 ETH)'),
+            'bounty'       => t('app', 'Link to bounty'),
+            'mvp_prototype'       => t('app', 'Link to MVP/Prototype'),
+            'whitelist_kyc'       => t('app', 'Whitelist/KYC?'),
+            'restricted_areas'       => t('app', 'Any restrictions in who can participate?'),
+            'bonus'       => t('app', 'Bonus'),
+            'accepting'       => t('app', 'Accepting'),
+            'minimum_investment'       => t('app', 'Minimum Investment'),
+            'soft_cap'       => t('app', 'Soft Cap'),
+            'hard_cap'       => t('app', 'Hard Cap'),
         ]);
     }
 
@@ -437,6 +457,21 @@ class Listing extends \app\models\auto\Listing
     {
         return $this->location->country->name;
     }
+    /**
+     * Get string that represents days/hours left until ad becomes active
+     *
+     * @return string
+     */
+    public function getDateUntilActive() {
+        $date = new \DateTime($this->active_from_date);
+        $now =  new \DateTime();
+        $interval = $now->diff( $date);
+        $totalDays = (int)$interval->format("%a");
+        $hours = (int)$interval->format("%h");
+        $pluralizeDays = ($totalDays == 1 || $totalDays == 0) ?  t('app', 'day') :  t('app', 'days');
+        $pluralizeHours = ($hours == 1 || $hours == 0) ?  t('app', 'hour') :  t('app', 'hours');
+        return $interval->format("%a ".$pluralizeDays.", %h ".$pluralizeHours);
+    }
 
     /**
      * @return array
@@ -454,9 +489,8 @@ class Listing extends \app\models\auto\Listing
 
     static function getTypes() {
         return [
-            self::TYPE_PREICO             => t('app', 'Pre-ICO'),
-            self::TYPE_ICO            => t('app', 'ICO')
+            self::TYPE_PREICO  => t('app', 'Pre-ICO'),
+            self::TYPE_ICO => t('app', 'ICO')
         ];
     }
-
 }

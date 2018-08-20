@@ -6,6 +6,7 @@ use app\models\Category;
 use app\components\AdsListWidget;
 use app\components\SendMessageWidget;
 use \app\models\CustomerStore;
+use yii\widgets\DetailView;
 AdAsset::register($this);
 
 $showGalleryArrows = (count($images) > 1) ? true : false;
@@ -43,7 +44,7 @@ $fullWidthGallery = (count($images) < 4) ? 'full-width' : '' ;
                                     <a target="_blank" href="https://twitter.com/intent/tweet?text=<?=html_encode($ad->title);?>&url=<?=url(['/listing/index/', 'slug' => $ad->slug], true);?>" class="social-link track-stats" data-listing-id="<?=(int)$ad->listing_id;?>" data-stats-type="<?=ListingStat::TWITTER_SHARES;?>"><i class="fa fa-twitter" aria-hidden="true"></i></a>
                                     <a href="mailto:?subject=<?=html_encode($ad->title);?>&body=<?=t('app', 'Read More:');?><?=url(['/listing/index/', 'slug' => $ad->slug], true);?>" class="social-link track-stats" data-listing-id="<?=(int)$ad->listing_id;?>" data-stats-type="<?=ListingStat::MAIL_SHARES;?>"><i class="fa fa-envelope-o" aria-hidden="true"></i></a>
                                 </div>
-                         <h2><b> Soft cap in fiat</b></h2> <h2><?=html_encode($ad->getPriceAsCurrency($ad->currency->code));?><span><?=$ad->isNegotiable() ? t('app','Negotiable') : '';?></span></h2>
+                                <?php if(isset($ad->currency->code)):?><h2><b> Soft cap in fiat</b></h2> <h2><?=html_encode($ad->getPriceAsCurrency($ad->currency->code));?><span><?=$ad->isNegotiable() ? t('app','Negotiable') : '';?></span></h2><?php endif; ?>
                             <?php } else { ?>
                                 <h2><?=strtoupper(\app\models\Listing::STATUS_EXPIRED);?></h2>
                             <?php } ?>
@@ -223,7 +224,7 @@ $fullWidthGallery = (count($images) < 4) ? 'full-width' : '' ;
                                     <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
                                         <div class="price">
                                             <?php if(!$ad->isExpired) { ?>
-                                                <h2><?=html_encode($ad->getPriceAsCurrency($ad->currency->code));?></h2>
+                                                <?php if(isset($ad->currency->code)):?><h2><?=html_encode($ad->getPriceAsCurrency($ad->currency->code));?></h2><?php endif; ?>
                                                 <?=$ad->isNegotiable() ? t('app','Negotiable') : '';?>
                                             <?php } else { ?>
                                                 <h2><?=strtoupper(\app\models\Listing::STATUS_EXPIRED);?></h2>
@@ -353,6 +354,14 @@ $fullWidthGallery = (count($images) < 4) ? 'full-width' : '' ;
                     <span><?= t('app', '');?></span>
                 </div>
             </div>
+            <?php if(isset($ad->youtube)):?>
+                <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12">
+                    <div class="videoWrapper">
+                        <!-- Copy & Pasted from YouTube -->
+                        <iframe width="560" height="349" src="<?=$ad->youtube?>" frameborder="0" allowfullscreen></iframe>
+                    </div>
+                </div>
+            <?php endif; ?>
             <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12">
                 <p><?=html_purify($ad->description);?></p>
             </div>

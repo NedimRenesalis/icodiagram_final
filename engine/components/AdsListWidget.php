@@ -90,6 +90,7 @@ class AdsListWidget extends Widget
      */
     public function run()
     {
+        $type = Listing::EVENT_TYPE_ACTIVE;
         $query = Listing::find()->alias('t')
             ->joinWith(['package c1'], true, 'INNER JOIN')
             ->with(['favorite', 'currency', 'mainImage', 'category', 'location.zone', 'location.country'])
@@ -105,6 +106,7 @@ class AdsListWidget extends Widget
                 ]);
         } else {
             $query->andWhere(['>', 't.active_from_date', new Expression('NOW()')]);
+            $type = Listing::EVENT_TYPE_UPCOMING;
         }
 
         if ($this->getIsPromotedList()) {
@@ -132,7 +134,8 @@ class AdsListWidget extends Widget
                 'ads' => $ads,
                 'title' => $this->title,
                 'col' => $this->col,
-                'isPromoted' => $this->getIsPromotedList()]);
+                'isPromoted' => $this->getIsPromotedList(),
+                'type' => $type]);
         }
 
         if ($this->emptyTemplate) {

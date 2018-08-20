@@ -1,5 +1,6 @@
 <?php
 use app\models\ListingStat;
+use app\models\Listing;
 $formatter = app()->formatter;
 ?>
 
@@ -33,8 +34,10 @@ $formatter = app()->formatter;
                     <b>  <a href="<?= url(['/listing/index', 'slug' => $ad->slug]); ?>" class="name">
                             <?= html_encode(strtoupper($ad->title)); ?> </b>
                         </a>
-                        <div class="location"><i class="fa fa-map-marker" aria-hidden="true"></i> <?= html_encode($ad->getZoneCountryString()); ?>
-                        </div>
+                        <div class="location"><i class="fa fa-map-marker" aria-hidden="true"></i> <?= html_encode($ad->getZoneCountryString()); ?></div>
+                       <?php if($type == Listing::EVENT_TYPE_UPCOMING): ?>
+                            <div><i class="fa fa-clock-o" aria-hidden="true"></i> <?=$ad->getDateUntilActive()?></div>
+                       <?php endif; ?>
                     </div></center>
                 </div>
             <?php } ?>

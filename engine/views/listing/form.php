@@ -81,15 +81,6 @@ $this->registerJs($script, yii\web\View::POS_LOAD);
                                     </div>
                                 </div>
                                 <br>
-                             <u>  <center> <br>Please provide following information below in the ICO description:</u>
-                                <br>Our hard cap is...
-                                <br>Our soft cap is...
-                                <br>Platform: 
-                                <br>Restricted countries:
-                                <br>Whitelist/KYC:
-                                <br>ICO description text </center>
-                                <br>
-                                <br>
                                 <div class="row">
                                     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                                         <?= $form->field($ad, 'description')->widget(CKEditor::className(), [
@@ -98,11 +89,32 @@ $this->registerJs($script, yii\web\View::POS_LOAD);
                                             'clientOptions' => [
                                                 'removePlugins' => 'pastefromword, tableselection',
                                                 'contentsCss' => [Yii::getAlias('@web/assets/site/css/customCkeditor.css')],
-                                                'toolbar'   => ['clipboard', 'cut, copy, paste'],
+
                                             ]
                                         ])->label(); ?>
                                     </div>
                                 </div>
+
+                                <div class="row">
+                                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                        <?= $form->field($ad, 'youtube')->textInput(['class' => 'form-control']) ?>
+                                        <?= $form->field($ad, 'token')->textInput(['class' => 'form-control']) ?>
+                                        <?= $form->field($ad, 'pre_ico_price')->textInput(['class' => 'form-control']) ?>
+                                        <?= $form->field($ad, 'ico_price')->textInput(['class' => 'form-control']) ?>
+                                        <?= $form->field($ad, 'bonus')->textInput(['class' => 'form-control']) ?>
+                                        <?= $form->field($ad, 'mvp_prototype')->textInput(['class' => 'form-control']) ?>
+                                        <?= $form->field($ad, 'platform')->textInput(['class' => 'form-control']) ?>
+                                        <?= $form->field($ad, 'accepting')->textInput(['class' => 'form-control']) ?>
+                                        <?= $form->field($ad, 'minimum_investment')->textInput(['class' => 'form-control']) ?>
+                                        <?= $form->field($ad, 'soft_cap')->textInput(['class' => 'form-control']) ?>
+                                        <?= $form->field($ad, 'hard_cap')->textInput(['class' => 'form-control']) ?>
+                                        <?= $form->field($ad, 'bounty')->textInput(['class' => 'form-control']) ?>
+                                        <?= $form->field($ad, 'whitelist_kyc')->textInput(['class' => 'form-control']) ?>
+                                        <?= $form->field($ad, 'restricted_areas')->textInput(['class' => 'form-control']) ?>
+
+                                    </div>
+                                </div>
+
                                 <div class="row">
                                     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                                         <div class="separator-text">
@@ -232,40 +244,6 @@ $this->registerJs($script, yii\web\View::POS_LOAD);
                                         </div>
                                     <?php } ?>
                                 </div>
-
-                                <div class="row">
-                                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                                        <div class="separator-text">
-                                            <span><?=t('app','Soft cap in fiat');?></span>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <?php $currencyNumber = count(ArrayHelper::map(Currency::getActiveCurrencies(),'currency_id', 'name'));?>
-                                    <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
-                                        <?php if($currencyNumber > 1) { ?>
-                                            <?= $form->field($ad, 'currency_id', [
-                                                'template' => '{input} {error}',
-                                            ])->dropDownList(ArrayHelper::map(Currency::getActiveCurrencies(), 'currency_id', 'name'), ['class' => '', 'prompt' => t('app', 'Currency')])->label(false);
-                                        } else { ?>
-                                            <?= $form->field($ad, 'currency_id', [
-                                                'template' => '{input} {error}',
-                                                'options'    => ['style' => 'display:none'],
-                                                ])->hiddenInput(['value'=> Currency::getActiveCurrencies()[0]->currency_id, 'class' => 'form-control'])->label(false); ?>
-                                            <?= $form->field($ad, 'currency_id', [
-                                                'template' => '{input} {error}',
-                                            ])->dropDownList(ArrayHelper::map(Currency::getActiveCurrencies(), 'currency_id', 'name'), ['value' => Currency::getActiveCurrencies()[0]->currency_id, 'class' => '', 'prompt' => t('app', 'Currency'), 'disabled' => true])->label(false);
-                                        } ?>
-                                    </div>
-                                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                                        <?= $form->field($ad, 'price', [
-                                            'template'      => '{input} {error}',
-                                        ])->textInput(['placeholder' => t('app','Soft cap in fiat'), 'class' => 'form-control'])->label(false); ?>
-                                    </div>
-                                   
-                                </div>
-                                <center>If you intend to list your soft cap value in crypto, please indicate this in the above-mentioned ICO description form field. 
-                                <br>Here please convert your soft cap either in EUR or in USD.</center>
                                 <div class="row">
                                     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                                         <div class="separator-text">
