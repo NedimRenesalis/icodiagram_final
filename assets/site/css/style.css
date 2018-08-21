@@ -6376,6 +6376,9 @@ div.fancy-select ul.options li.selected {
     border-bottom: 3px solid #001a66;
 }
 
+.ad-details .row {
+    margin: 20px 0;
+}
 html[dir=rtl] .breadcrumb li {
     float: right;
 }

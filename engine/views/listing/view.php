@@ -347,7 +347,6 @@ $fullWidthGallery = (count($images) < 4) ? 'full-width' : '' ;
             }
         }
         ?>
-
         <div class="row">
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                 <div class="separator-text">
@@ -362,6 +361,157 @@ $fullWidthGallery = (count($images) < 4) ? 'full-width' : '' ;
                     </div>
                 </div>
             <?php endif; ?>
+        </div>
+        <div class="ad-details">
+            <?php if(isset($ad->token)):?>
+                <div class="row">
+                    <div class="col-lg-2 col-md-2 col-sm-2 col-xs-6">
+                        <strong><?=t('app', 'Token')?></strong>
+                    </div>
+                    <div class="col-lg-10 col-md-6 col-sm-10 col-xs-6">
+                        <?=$ad->token?>
+                    </div>
+                </div>
+            <?php endif; ?>
+
+            <?php if(isset($ad->pre_ico_price)):?>
+                <div class="row">
+                    <div class="col-lg-2 col-md-2 col-sm-2 col-xs-6">
+                        <strong><?=t('app', 'PreICO Price')?></strong>
+                    </div>
+                    <div class="col-lg-10 col-md-6 col-sm-10 col-xs-6">
+                        <?=$ad->pre_ico_price?>
+                    </div>
+                </div>
+            <?php endif; ?>
+
+            <?php if(isset($ad->ico_price)):?>
+                <div class="row">
+                    <div class="col-lg-2 col-md-2 col-sm-2 col-xs-6">
+                        <strong><?=t('app', 'Price')?></strong>
+                    </div>
+                    <div class="col-lg-10 col-md-6 col-sm-10 col-xs-6">
+                        <?=$ad->ico_price?>
+                    </div>
+                </div>
+            <?php endif; ?>
+
+            <?php if(isset($ad->bonus)):?>
+                <div class="row">
+                    <div class="col-lg-2 col-md-2 col-sm-2 col-xs-6">
+                        <strong><?=t('app', 'Bonus')?></strong>
+                    </div>
+                    <div class="col-lg-10 col-md-6 col-sm-10 col-xs-6">
+                        <?=$ad->bonus?>
+                    </div>
+                </div>
+            <?php endif; ?>
+
+            <?php if(isset($ad->mvp_prototype)):?>
+                <div class="row">
+                    <div class="col-lg-2 col-md-2 col-sm-2 col-xs-6">
+                        <strong><?=t('app', 'MVP/Prototype')?></strong>
+                    </div>
+                    <div class="col-lg-10 col-md-6 col-sm-10 col-xs-6">
+                        <a href="<?=$ad->mvp_prototype?>"><?=t('app', 'Available')?></a>
+                    </div>
+                </div>
+            <?php endif; ?>
+
+            <?php if(isset($ad->platform)):?>
+                <div class="row">
+                    <div class="col-lg-2 col-md-2 col-sm-2 col-xs-6">
+                        <strong><?=t('app', 'Platform')?></strong>
+                    </div>
+                    <div class="col-lg-10 col-md-6 col-sm-10 col-xs-6">
+                        <?=$ad->platform?>
+                    </div>
+                </div>
+            <?php endif; ?>
+
+            <?php if(isset($ad->accepting)):?>
+                <div class="row">
+                    <div class="col-lg-2 col-md-2 col-sm-2 col-xs-6">
+                        <strong><?=t('app', 'Accepting')?></strong>
+                    </div>
+                    <div class="col-lg-10 col-md-6 col-sm-10 col-xs-6">
+                        <?=$ad->accepting?>
+                    </div>
+                </div>
+            <?php endif; ?>
+
+            <?php if(isset($ad->minimum_investment)):?>
+                <div class="row">
+                    <div class="col-lg-2 col-md-2 col-sm-2 col-xs-6">
+                        <strong><?=t('app', 'Minimum Investment')?></strong>
+                    </div>
+                    <div class="col-lg-10 col-md-6 col-sm-10 col-xs-6">
+                        <?=$ad->minimum_investment?>
+                    </div>
+                </div>
+            <?php endif; ?>
+
+            <?php if(isset($ad->soft_cap)):?>
+                <div class="row">
+                    <div class="col-lg-2 col-md-2 col-sm-2 col-xs-6">
+                        <strong><?=t('app', 'Soft Cap')?></strong>
+                    </div>
+                    <div class="col-lg-10 col-md-6 col-sm-10 col-xs-6">
+                        <?=$ad->soft_cap?>
+                    </div>
+                </div>
+            <?php endif; ?>
+
+            <?php if(isset($ad->hard_cap)):?>
+                <div class="row">
+                    <div class="col-lg-2 col-md-2 col-sm-2 col-xs-6">
+                        <strong><?=t('app', 'Hard Cap')?></strong>
+                    </div>
+                    <div class="col-lg-10 col-md-6 col-sm-10 col-xs-6">
+                        <?=$ad->hard_cap?>
+                    </div>
+                </div>
+            <?php endif; ?>
+
+            <?php if(isset($ad->bounty)):?>
+                <div class="row">
+                    <div class="col-lg-2 col-md-2 col-sm-2 col-xs-6">
+                        <strong><?=t('app', 'MVP/Prototype')?></strong>
+                    </div>
+                    <div class="col-lg-10 col-md-6 col-sm-10 col-xs-6">
+                        <a href="<?=$ad->bounty?>"><?=t('app', 'Available')?></a>
+                    </div>
+                </div>
+            <?php endif; ?>
+
+            <?php if(isset($ad->whitelist_kyc)):?>
+                <div class="row">
+                    <div class="col-lg-2 col-md-2 col-sm-2 col-xs-6">
+                        <strong><?=t('app', 'Whitelist/KYC')?></strong>
+                    </div>
+                    <div class="col-lg-10 col-md-6 col-sm-10 col-xs-6">
+                        <?=$ad->whitelist_kyc?>
+                    </div>
+                </div>
+            <?php endif; ?>
+
+            <?php if(isset($ad->restricted_areas)):?>
+                <div class="row">
+                    <div class="col-lg-2 col-md-2 col-sm-2 col-xs-6">
+                        <strong><?=t('app', 'Restricted Areas')?></strong>
+                    </div>
+                    <div class="col-lg-10 col-md-6 col-sm-10 col-xs-6">
+                        <?=$ad->restricted_areas?>
+                    </div>
+                </div>
+            <?php endif; ?>
+        </div>
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <div class="separator-text">
+                    <span><?= t('app', '');?></span>
+                </div>
+            </div>
             <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12">
                 <p><?=html_purify($ad->description);?></p>
             </div>
