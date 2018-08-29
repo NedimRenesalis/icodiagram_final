@@ -4,7 +4,7 @@ if (is_file($file = __DIR__ ."/constants-local.php")) {
     require $file;
 }
 
-defined('YII_ENV') or define('YII_ENV', 'production');
+defined('YII_ENV') or define('YII_ENV', 'debug');
 
 define('APP_PATH', realpath(dirname(__FILE__).'/..'));
 define('APP_APPS_PATH', APP_PATH);

@@ -67,12 +67,6 @@ $this->registerJs($script, yii\web\View::POS_LOAD);
                     <div class="block-body">
                         <div class="row">
                             <div class="col-lg-8 col-lg-push-2 col-md-8 col-md-push-2 col-sm-12 col-xs-12">
-                                <?= $form->field($ad, 'type', [
-                                                'template' => '{input} {error}',
-                                    ])->dropDownList(Listing::getTypes(), ['class' => '', 'prompt' => t('app', 'Type')])->label(false);
-                                ?>
-                            </div>
-                            <div class="col-lg-8 col-lg-push-2 col-md-8 col-md-push-2 col-sm-12 col-xs-12">
                                 <div class="row">
                                     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                                         <?= $form->field($ad, 'title', [
@@ -92,6 +86,33 @@ $this->registerJs($script, yii\web\View::POS_LOAD);
 
                                             ]
                                         ])->label(); ?>
+                                    </div>
+                                </div>
+
+                                <center>Pre-ICO Dates</center>
+                                <div class="row">
+                                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                                        <?= $form->field($ad, 'pre_ico_upcoming_from_date')->widget(\yii\jui\DatePicker::class, [
+                                            'dateFormat' => 'yyyy-MM-dd',
+                                        ]) ?>
+                                    </div>
+                                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                                        <?= $form->field($ad, 'pre_ico_active_from_date')->widget(\yii\jui\DatePicker::class, [
+                                            'dateFormat' => 'yyyy-MM-dd',
+                                        ]) ?>
+                                    </div>
+                                </div>
+                                <center>ICO Dates</center>
+                                <div class="row">
+                                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                                        <?= $form->field($ad, 'ico_upcoming_from_date')->widget(\yii\jui\DatePicker::class, [
+                                            'dateFormat' => 'yyyy-MM-dd',
+                                        ]) ?>
+                                    </div>
+                                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                                        <?= $form->field($ad, 'ico_active_from_date')->widget(\yii\jui\DatePicker::class, [
+                                            'dateFormat' => 'yyyy-MM-dd',
+                                        ]) ?>
                                     </div>
                                 </div>
 
@@ -290,29 +311,12 @@ $this->registerJs($script, yii\web\View::POS_LOAD);
                                             ])->dropDownList(ArrayHelper::map(Country::getActiveCountries(), 'country_id', 'name'),['value' => Country::getActiveCountries()[0]->country_id, 'class'=>'', 'prompt' => t('app','Country'), 'disabled' => true])->label(false);
                                         } ?>
                                     </div>
-                                </div>
-                                <center>Active from date</center>
-                                <div class="row">
-                                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                                        <?= $form->field($ad, 'active_from_date')->widget(\yii\jui\DatePicker::class, [
-                                            'dateFormat' => 'yyyy-MM-dd',
-                                        ])->label(false) ?>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                <center>ICO (pre)sale starting and ending date</center>
-                                <br>
-                                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                                        <?= $form->field($location, 'city', [
-                                            'template'      => '{input} {error}',
-                                        ])->textInput(['placeholder' => t('app','Date of starting - date of ending'), 'class' => 'form-control'])->label(false); ?>
-                                    </div>
                                     <?php if (options()->get('app.settings.common.adHideZip', 'en') == 0) { ?>
-                                    <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
-                                        <?= $form->field($location, 'zip', [
-                                            'template'      => '{input} {error}',
-                                        ])->textInput(['placeholder' => t('app','Zip code'), 'class' => 'form-control'])->label(false); ?>
-                                    </div>
+                                        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+                                            <?= $form->field($location, 'zip', [
+                                                'template'      => '{input} {error}',
+                                            ])->textInput(['placeholder' => t('app','Zip code'), 'class' => 'form-control'])->label(false); ?>
+                                        </div>
                                     <?php } ?>
                                 </div>
                                 <div class="row">
