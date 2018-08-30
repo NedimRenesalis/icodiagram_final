@@ -354,10 +354,13 @@ $fullWidthGallery = (count($images) < 4) ? 'full-width' : '' ;
                 </div>
             </div>
             <?php if(isset($ad->youtube)):?>
-                <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12">
+                <div class="col-lg-9 col-md-9 col-sm-12 col-xs-12">
                     <div class="videoWrapper">
                         <!-- Copy & Pasted from YouTube -->
-                        <iframe width="560" height="349" src="<?=$ad->youtube?>" frameborder="0" allowfullscreen></iframe>
+                        <?php
+                        preg_match("/^(?:http(?:s)?:\/\/)?(?:www\.)?(?:m\.)?(?:youtu\.be\/|youtube\.com\/(?:(?:watch)?\?(?:.*&)?v(?:i)?=|(?:embed|v|vi|user)\/))([^\?&\"'>]+)/", $ad->youtube, $matches);
+                        ?>
+                        <iframe width="560" height="315" src="http://www.youtube.com/embed/<?=$matches[1]?>" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
                     </div>
                 </div>
             <?php endif; ?>
