@@ -360,7 +360,7 @@ $fullWidthGallery = (count($images) < 4) ? 'full-width' : '' ;
                         <?php
                         preg_match("/^(?:http(?:s)?:\/\/)?(?:www\.)?(?:m\.)?(?:youtu\.be\/|youtube\.com\/(?:(?:watch)?\?(?:.*&)?v(?:i)?=|(?:embed|v|vi|user)\/))([^\?&\"'>]+)/", $ad->youtube, $matches);
                         ?>
-                        <iframe width="560" height="315" src="http://www.youtube.com/embed/<?=$matches[1]?>" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+                        <iframe width="560" height="315" src="https://www.youtube.com/embed/<?=$matches[1]?>" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
                     </div>
                 </div>
             <?php endif; ?>
