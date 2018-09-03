@@ -8,6 +8,16 @@
     use yii\widgets\ActiveForm;
 ?>
 <footer id="footer">
+    <!-- BANNERS BOTTOM -->
+    <div class="banner-bottom">
+        <div class="container">
+            <div class="row">
+                <?php
+                    echo $this->render('../site/_banner', ['adspace' => 'location_bottom']);
+                ?>
+            </div>
+        </div>
+    </div>
     <!-- Publish ICO -->
     <div class="post-add-bar no-margin">
         <div class="container">

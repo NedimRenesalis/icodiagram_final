@@ -13,14 +13,13 @@
 namespace app\controllers;
 
 use Yii;
-use yii\filters\VerbFilter;
-use yii\web\NotFoundHttpException;
-use yii\helpers\ArrayHelper;
-use yii\web\Response;
-use app\yii\web\Controller;
-
 use app\models\SubscribeForm;
 use app\models\auto\Subscribe;
+
+use yii\web\Controller;
+use yii\web\NotFoundHttpException;
+use yii\web\GoneHttpException;
+
 
 /**
  * Class SubscribeController

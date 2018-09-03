@@ -35,6 +35,7 @@ $user = app()->user->identity;
                 'icon' => 'file-text-o',
                 'url' => '#',
                 'items' => [
+                    ['label' => 'Banners', 'icon' => 'chevron-right', 'url' => ['/admin/banner']],
                     ['label' => 'Pages', 'icon' => 'chevron-right', 'url' => ['/admin/pages']],
                     ['label' => 'Contact Form', 'icon' => 'chevron-right', 'url' => ['/admin/contact']],
                 ]

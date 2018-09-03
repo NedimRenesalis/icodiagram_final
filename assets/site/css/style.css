@@ -9889,3 +9889,14 @@ html[dir=rtl] .conversation-reply .fa.fa-lock {
   }
 }
 */
+
+/* BANNER STYLES */
+a.banner img {
+    width: 100%;
+    max-height: 200px;
+    min-height: 60px;
+}
+
+.banner-top, .banner-bottom {
+    background: white;
+}

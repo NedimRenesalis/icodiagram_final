@@ -19,6 +19,17 @@ $event_type = $event_type ? (($event_type == Listing::EVENT_TYPE_ACTIVE) ? Listi
 
 </section>
 
+<!-- BANNERS TOP -->
+<div class="banner-top">
+    <div class="container">
+        <div class="row">
+            <?php
+                echo $this->render('_banner', ['adspace' => 'location_top']);
+            ?>
+        </div>
+    </div>
+</div>
+
 <div class="container">
     <div class="row">
         <div class="mb10 col-lg-8 col-lg-push-2 col-md-8 col-md-push-2 col-sm-12 hidden-xs">
