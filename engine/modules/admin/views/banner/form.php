@@ -1,6 +1,8 @@
 <?php
     use yii\helpers\Html;
     use yii\widgets\ActiveForm;
+    use kartik\file\FileInput;
+    use yii\helpers\Url;
 
     if ($action == 'update') {
         $this->title = t('app', 'Update Banner:  ') . $model->title;
@@ -23,11 +25,67 @@
         </div>
     </div>
     <div class="box-body">
-        <?php $form = ActiveForm::begin();?>
+        <?php $form = ActiveForm::begin(['options' => ['enctype' => 'multipart/form-data']]);?>
         <div class="row">
             <div class="col-md-6">
                 <?=$form->field($model, 'title')->textInput(['maxlength' => true])?>
-                <?=$form->field($model, 'image')->textInput(['maxlength' => true])?>
+
+                <?php 
+                    if($action == 'update') {
+                        echo $form->field($model, 'image')->widget(FileInput::classname(), [
+                            'options' => [
+                                'accept'    => 'image/*',
+                                'multiple'  => false
+                            ],
+                            'pluginOptions' => [
+                                'allowedFileExtensions' => ['jpg', 'jpeg', 'png', 'gif'],
+                                'allowedFileTypes'      => ["image"],
+                                'overwriteInitial'      => true,
+
+                                'showUpload'    => false,
+                                'showPreview'   => true,
+                                'showBrowse'    => true,
+                                'showClose'     => false,
+                                'showRemove'    => false,
+                                'allowClear'    => false,
+                                'initialize'    => true,
+
+                                'fileActionSettings' => [
+                                    'showRemove' => false,
+                                ],
+
+                                'initialPreview' => [
+                                    Html::img(Url::base(true) . '/' . $model->image, ['class' => 'file-preview-image kv-preview-data']),
+                                ],
+                            ],
+                        ]);   
+                    }
+                    else {
+                        echo $form->field($model, 'image')->widget(FileInput::classname(), [
+                            'options' => [
+                                'accept'    => 'image/*',
+                                'multiple'  => false
+                            ],
+                            'pluginOptions' => [
+                                'allowedFileExtensions' => ['jpg', 'jpeg', 'png', 'gif'],
+                                'allowedFileTypes'      => ["image"],
+                                'overwriteInitial'      => true,
+
+                                'fileActionSettings' => [
+                                    'showRemove' => false,
+                                ],
+
+                                'showUpload'    => false,
+                                'showPreview'   => true,
+                                'showBrowse'    => true,
+                                'showRemove'    => true,
+                                'removeLabel'   => '',
+                                'removeIcon'    => '<i class="glyphicon glyphicon-remove"></i>',
+                            ],
+                        ]);   
+                    }
+                ?>
+                
                 <?=$form->field($model, 'valid_from')->textInput(['type' => 'date'])?>
                 <?=$form->field($model, 'client')->textInput(['maxlength' => true])?>
             </div>

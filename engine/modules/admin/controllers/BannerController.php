@@ -18,6 +18,8 @@
     use yii\filters\VerbFilter;
     use yii\web\Controller;
     use yii\web\NotFoundHttpException;
+    use yii\web\UploadedFile;   
+    use yii\helpers\Url;
 
 /**
  * Controls the actions for banner module.
@@ -56,6 +58,7 @@ class BannerController extends \app\modules\admin\yii\web\Controller
      */
     public function actionIndex()
     {
+
         $searchModel = new BannerSearch();
         $dataProvider = $searchModel->search(request()->queryParams);
         $dataProvider->pagination->pageSize = 20;
@@ -88,18 +91,23 @@ class BannerController extends \app\modules\admin\yii\web\Controller
     public function actionCreate()
     {
         $model = new Banner();
+        $model->scenario = 'create';
 
         $model->active = true;
         $model->visit_count = 0;
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['index']);
-        } else {
-            return $this->render('form', [
-                'action'=> 'create',
-                'model' => $model,
-            ]);
-        }
+        if ($model->load(Yii::$app->request->post())) {
+            $model->image = UploadedFile::getInstance($model, 'image');
+
+            if ($model->upload() && $model->save()) {
+                return $this->redirect(['index']);
+            } else notify()->addError(t('app', 'Something went wrong'));
+        } else notify()->addError(t('app', 'Something went wrong'));
+
+        return $this->render('form', [
+            'action'=> 'create',
+            'model' => $model,
+        ]);
     }
 
     /**
@@ -111,15 +119,27 @@ class BannerController extends \app\modules\admin\yii\web\Controller
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
+        $mainImage = $model->image;
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['index']);
-        } else {
-            return $this->render('form', [
-                'action'=> 'update',
-                'model' => $model,
-            ]);
-        }
+        if ($model->load(Yii::$app->request->post())) {
+            $image = UploadedFile::getInstance($model, 'image');
+            
+            if (empty($image)) {
+                $model->image = $mainImage;
+                if($model->save()) return $this->redirect(['index']);
+                else notify()->addError(t('app', 'Something went wrong'));
+            }
+            else {
+                $model->image = $image;
+                if($model->upload() && $model->save()) return $this->redirect(['index']);
+                else notify()->addError(t('app', 'Something went wrong'));
+            }
+        } else notify()->addError(t('app', 'Something went wrong'));
+
+        return $this->render('form', [
+            'action'=> 'update',
+            'model' => $model,
+        ]);
     }
 
     /**
@@ -130,7 +150,13 @@ class BannerController extends \app\modules\admin\yii\web\Controller
      */
     public function actionDelete($id)
     {
-        $this->findModel($id)->delete();
+        $banner = $this->findModel($id);
+        
+        if($banner) {
+            unlink($banner->image);
+            $banner->delete();
+        } else notify()->addError(t('app', 'Something went wrong'));
+
         return $this->redirect(['index']);
     }
 

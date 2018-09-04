@@ -28,14 +28,14 @@ if ($banners) {
 
     foreach ($banners as $banner) {
         echo Html::a("
-            <img class=\"thumbnail banner\" src=\"{$banner->image}\">
+            <img class=\"thumbnail banner\" src=\"/{$banner->image}\">
             </img>", 
         ['//banner/visit', 'id' => $banner->slug], ['class' => 'banner col-md-6 col-sm-12 col-lg-6', 'target' => '_blank']);
     }
 
     if((array)$centeredBanner) {
         echo Html::a("
-            <img class=\"thumbnail banner\" src=\"{$centeredBanner->image}\">
+            <img class=\"thumbnail banner\" src=\"/{$centeredBanner->image}\">
             </img>", 
         ['//banner/visit', 'id' => $centeredBanner->slug], ['class' => 'banner col-md-6 col-md-offset-3 col-sm-12 col-lg-6 col-lg-offset-3', 'target' => '_blank']);
 

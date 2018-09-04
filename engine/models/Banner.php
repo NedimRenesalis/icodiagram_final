@@ -15,6 +15,9 @@ namespace app\models;
 use Yii;
 use yii\behaviors\SluggableBehavior;
 use yii\behaviors\TimestampBehavior;
+use yii\web\UploadedFile;
+use yii\helpers\Url;
+
 
 /**
  * Class Banner
@@ -57,7 +60,24 @@ class Banner extends \app\yii\db\ActiveRecord
             ],
         ];
     }
+    
+    /**
+     * @inheritdoc
+     */
+    public function upload()
+    {
+        if ($this->validate()) {
+            $this->image->saveAs(Yii::getAlias('@banner') . '/' . $this->slug . '.' . $this->image->extension);
+            $this->image = Yii::getAlias('@banner') . '/' . $this->slug . '.' . $this->image->extension;
+            return true;
+        } else {
+            return false;
+        }
+    }
 
+    /**
+     * @inheritdoc
+     */
     public function isActive()
     {
         $now = time();
@@ -78,12 +98,16 @@ class Banner extends \app\yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['title', 'image', 'url'], 'required'],
+            [['title', 'url'], 'required'],
             [['visit_count', 'active'], 'integer'],
             [['created_at', 'updated_at', 'valid_from', 'valid_until', 'slug'], 'safe'],
             [['comment'], 'string'],
             [['url'], 'url'],
-            [['title', 'slug', 'image', 'url', 'client', 'adspace'], 'string', 'max' => 255],
+            [['image'], 'safe'],
+            [['image'], 'required', 'on'=> 'create'],
+            [['image'], 'file', 'maxSize'=>'100000'],
+            [['image'], 'file', 'skipOnEmpty' => true, 'extensions' => 'png,jpg,jpeg,gif', 'wrongExtension' => '{extensions} files only.'],
+            [['title', 'slug', 'url', 'client', 'adspace'], 'string', 'max' => 255],
             [['title'], 'unique'],
             [['slug'], 'unique'],
         ];

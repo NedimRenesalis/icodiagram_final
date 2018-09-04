@@ -13,6 +13,7 @@ $config = [
     'timeZone' => 'UTC',
     'aliases' => [
         '@assets' => '../../assets',
+        '@banner' => 'assets/site/img/banners',
     ],
     'bootstrap' => [
         'log',

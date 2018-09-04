@@ -27,7 +27,7 @@ use yii\web\GoneHttpException;
 class BannerController extends Controller
 {
     /**
-     * Action subscribe.
+     * Action visit.
      */
     public function actionVisit($id)
     {
