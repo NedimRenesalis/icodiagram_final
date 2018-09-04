@@ -67,7 +67,7 @@ class Banner extends \app\yii\db\ActiveRecord
     public function upload()
     {
         if ($this->validate()) {
-            $this->image->saveAs(Yii::getAlias('@banner') . '/' . $this->slug . '.' . $this->image->extension);
+            $this->image->saveAs(Yii::getAlias('@webroot') . '/' . Yii::getAlias('@banner') . '/' . $this->slug . '.' . $this->image->extension);
             $this->image = Yii::getAlias('@banner') . '/' . $this->slug . '.' . $this->image->extension;
             return true;
         } else {
