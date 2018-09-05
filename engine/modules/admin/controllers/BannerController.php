@@ -1,25 +1,24 @@
 <?php
-    /**
-     *
-     * @package    EasyAds
-     * @author     CodinBit <contact@codinbit.com>
-     * @link       https://www.easyads.io
-     * @copyright  2017 EasyAds (https://www.easyads.io)
-     * @license    https://www.easyads.io
-     * @since      1.0
-     */
+/**
+ *
+ * @package    EasyAds
+ * @author     CodinBit <contact@codinbit.com>
+ * @link       https://www.easyads.io
+ * @copyright  2017 EasyAds (https://www.easyads.io)
+ * @license    https://www.easyads.io
+ * @since      1.0
+ */
 
-    namespace app\modules\admin\controllers;
+namespace app\modules\admin\controllers;
 
-    use app\models\Banner;
-    use app\models\BannerSearch;
-    use Yii;
-    use yii\filters\AccessControl;
-    use yii\filters\VerbFilter;
-    use yii\web\Controller;
-    use yii\web\NotFoundHttpException;
-    use yii\web\UploadedFile;   
-    use yii\helpers\Url;
+use app\models\Banner;
+use app\models\BannerSearch;
+use Yii;
+use yii\filters\AccessControl;
+use yii\filters\VerbFilter;
+use yii\web\Controller;
+use yii\web\NotFoundHttpException;
+use yii\web\UploadedFile;
 
 /**
  * Controls the actions for banner module.
@@ -58,7 +57,6 @@ class BannerController extends \app\modules\admin\yii\web\Controller
      */
     public function actionIndex()
     {
-
         $searchModel = new BannerSearch();
         $dataProvider = $searchModel->search(request()->queryParams);
         $dataProvider->pagination->pageSize = 20;
@@ -101,11 +99,13 @@ class BannerController extends \app\modules\admin\yii\web\Controller
 
             if ($model->upload() && $model->save(false)) {
                 return $this->redirect(['index']);
-            } else notify()->addError(t('app', 'Something went wrong'));
-        } else notify()->addError(t('app', 'Something went wrong'));
+            } else {
+                notify()->addError(t('app', 'Something went wrong'));
+            }
+        }
 
         return $this->render('form', [
-            'action'=> 'create',
+            'action' => 'create',
             'model' => $model,
         ]);
     }
@@ -123,21 +123,30 @@ class BannerController extends \app\modules\admin\yii\web\Controller
 
         if ($model->load(Yii::$app->request->post())) {
             $image = UploadedFile::getInstance($model, 'image');
-            
+
             if (empty($image)) {
                 $model->image = $mainImage;
-                if($model->save()) return $this->redirect(['index']);
-                else notify()->addError(t('app', 'Something went wrong'));
-            }
-            else {
+
+                if ($model->save()) {
+                    return $this->redirect(['index']);
+                } else {
+                    notify()->addError(t('app', 'Something went wrong'));
+                }
+
+            } else {
                 $model->image = $image;
-                if($model->upload() && $model->save(false)) return $this->redirect(['index']);
-                else notify()->addError(t('app', 'Something went wrong'));
+
+                if ($model->upload() && $model->save(false)) {
+                    Banner::deleteImage($mainImage);
+                    return $this->redirect(['index']);
+                } else {
+                    notify()->addError(t('app', 'Something went wrong'));
+                }
             }
-        } else notify()->addError(t('app', 'Something went wrong'));
+        }
 
         return $this->render('form', [
-            'action'=> 'update',
+            'action' => 'update',
             'model' => $model,
         ]);
     }
@@ -151,11 +160,13 @@ class BannerController extends \app\modules\admin\yii\web\Controller
     public function actionDelete($id)
     {
         $banner = $this->findModel($id);
-        
-        if($banner) {
-            unlink($banner->image);
+
+        if ($banner) {
+            Banner::deleteImage($banner->image);
             $banner->delete();
-        } else notify()->addError(t('app', 'Something went wrong'));
+        } else {
+            notify()->addError(t('app', 'Something went wrong'));
+        }
 
         return $this->redirect(['index']);
     }

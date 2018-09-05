@@ -67,7 +67,7 @@ class Banner extends \app\yii\db\ActiveRecord
     public function upload()
     {
         if ($this->validate()) {
-            $storagePath = Yii::getAlias('@webroot') . '/' . Yii::getAlias('@banner');
+            $storagePath = Yii::$app->basePath . '/' . Yii::getAlias('@banner');
             if (!file_exists($storagePath) || !is_dir($storagePath)) {
                 if (!@mkdir($storagePath, 0777, true)) {
                     throw new \Exception(t('app', 'The images storage directory({path}) does not exists and cannot be created!'. $storagePath));
@@ -80,6 +80,14 @@ class Banner extends \app\yii\db\ActiveRecord
         } 
         
         return false;
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public static function deleteImage($img)
+    {
+        unlink(Yii::$app->basePath . '/' . $img);
     }
 
     /**
