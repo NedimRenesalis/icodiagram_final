@@ -77,9 +77,9 @@ class Banner extends \app\yii\db\ActiveRecord
             $this->image->saveAs($storagePath . '/' . $this->slug . '.' . $this->image->extension);
             $this->image = Yii::getAlias('@banner') . '/' . $this->slug . '.' . $this->image->extension;
             return true;
-        } else {
-            return false;
-        }
+        } 
+        
+        return false;
     }
 
     /**

@@ -99,7 +99,7 @@ class BannerController extends \app\modules\admin\yii\web\Controller
         if ($model->load(Yii::$app->request->post())) {
             $model->image = UploadedFile::getInstance($model, 'image');
 
-            if ($model->upload() && $model->save()) {
+            if ($model->upload() && $model->save(false)) {
                 return $this->redirect(['index']);
             } else notify()->addError(t('app', 'Something went wrong'));
         } else notify()->addError(t('app', 'Something went wrong'));
@@ -131,7 +131,7 @@ class BannerController extends \app\modules\admin\yii\web\Controller
             }
             else {
                 $model->image = $image;
-                if($model->upload() && $model->save()) return $this->redirect(['index']);
+                if($model->upload() && $model->save(false)) return $this->redirect(['index']);
                 else notify()->addError(t('app', 'Something went wrong'));
             }
         } else notify()->addError(t('app', 'Something went wrong'));
