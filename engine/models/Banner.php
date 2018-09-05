@@ -17,6 +17,7 @@ use yii\behaviors\SluggableBehavior;
 use yii\behaviors\TimestampBehavior;
 use yii\web\UploadedFile;
 use yii\helpers\Url;
+use yii\web\AssetBundle;
 
 
 /**
@@ -67,7 +68,7 @@ class Banner extends \app\yii\db\ActiveRecord
     public function upload()
     {
         if ($this->validate()) {
-            $storagePath = Yii::$app->basePath . '/' . Yii::getAlias('@banner');
+            $storagePath = Yii::getAlias('@webroot') . '/' . Yii::getAlias('@banner');
             if (!file_exists($storagePath) || !is_dir($storagePath)) {
                 if (!@mkdir($storagePath, 0777, true)) {
                     throw new \Exception(t('app', 'The images storage directory({path}) does not exists and cannot be created!'. $storagePath));
@@ -87,7 +88,7 @@ class Banner extends \app\yii\db\ActiveRecord
      */
     public static function deleteImage($img)
     {
-        unlink(Yii::$app->basePath . '/' . $img);
+        unlink(Yii::getAlias('@webroot') . '/' . $img);
     }
 
     /**
