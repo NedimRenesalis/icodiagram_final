@@ -67,7 +67,14 @@ class Banner extends \app\yii\db\ActiveRecord
     public function upload()
     {
         if ($this->validate()) {
-            $this->image->saveAs(Yii::getAlias('@webroot') . '/' . Yii::getAlias('@banner') . '/' . $this->slug . '.' . $this->image->extension);
+            $storagePath = Yii::getAlias('@webroot') . '/' . Yii::getAlias('@banner');
+            if (!file_exists($storagePath) || !is_dir($storagePath)) {
+                if (!@mkdir($storagePath, 0777, true)) {
+                    throw new \Exception(t('app', 'The images storage directory({path}) does not exists and cannot be created!'. $storagePath));
+                }
+            }
+
+            $this->image->saveAs($storagePath . '/' . $this->slug . '.' . $this->image->extension);
             $this->image = Yii::getAlias('@banner') . '/' . $this->slug . '.' . $this->image->extension;
             return true;
         } else {
